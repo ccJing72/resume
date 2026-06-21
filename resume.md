@@ -16,7 +16,7 @@ jingcc72@163.com
 
 - 后端框架：Java、Spring Boot、Spring Cloud、Spring MVC、MyBatis、RESTful API
 - 微服务与中间件：Nacos、Redis、RocketMQ、XXL-JOB、Canal、Nginx
-- 数据与建模：MySQL、TDengine、Elasticsearch、Liquibase、元数据模型、指标模型、OneData / OneService
+- 数据与建模：MySQL、TDengine、Elasticsearch、Liquibase、元数据模型、指标模型、OneData 方法论
 - DevOps 与运维：Linux、Shell、Docker、Jenkins、Jpom、Prometheus
 - AI 工程实践：AI Agent 辅助编码、LangGraph、RAG、知识库问答、Prompt Engineering
 
@@ -29,8 +29,8 @@ jingcc72@163.com
 #### 能源管理平台
 
 - 负责能源管理平台核心后端建设，完成基础框架、角色权限、能耗分析、设备告警、消息发送等模块设计与开发。
-- 参与数据中台架构设计，参考阿里 OneData / OneService 思路搭建统一数据服务体系，围绕“统一数据口径、统一指标模型、统一服务出口”设计元数据模型、指标模型和数据 API 服务能力。
-- 通过 OneData 体系沉淀能耗、设备、告警、组织、站点等主题数据，推动业务指标标准化和复用，减少不同页面、报表和分析场景中的重复建模与口径不一致问题。
+- 参与数据中台架构设计，参考阿里 OneData 方法论搭建统一数据服务体系，围绕“统一数据口径、统一指标模型、统一服务出口”设计元数据模型、指标模型和数据 API 服务能力。
+- 围绕能耗、设备、告警、组织、站点等主题沉淀公共数据与指标模型，推动业务指标标准化和复用，减少不同页面、报表和分析场景中的重复建模与口径不一致问题。
 - 引入 TDengine 承载设备时序数据，为能耗趋势分析、设备运行监测、指标聚合和告警分析提供数据基础。
 
 #### 碳管理平台

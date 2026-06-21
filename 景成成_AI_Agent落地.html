@@ -78,7 +78,7 @@
     display: block;
   }
   .company-line { font-size: 9.5pt; margin-bottom: 1pt; }
-  .company-line .name { font-weight: 700; }
+  .company-line .name { font-size: 10pt;font-weight: 700; }
   .company-line .meta { color: var(--gray-600); font-size: 9pt; }
   .company-line .period { color: var(--gray-400); font-size: 8pt; float: right; }
   .role-overview {
@@ -100,7 +100,7 @@
     margin-bottom: 1pt;
   }
   .project-num { font-size: 9pt; font-weight: 700; color: var(--blue-500); }
-  .project-name { font-size: 9.5pt; font-weight: 700; color: var(--blue-900); }
+  .project-name { font-size: 9pt; font-weight: 700; color: var(--blue-900); }
   .project-period { font-size: 7.5pt; color: var(--gray-400); margin-left: auto; white-space: nowrap; }
   .role-line { font-size: 8.35pt; margin-bottom: 2pt; }
   .role-line .role { font-weight: 700; color: var(--gray-800); }
@@ -134,10 +134,14 @@
   .skill-item .label { font-weight: 700; color: var(--blue-700); }
   .edu-line {
     font-size: 9pt;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
     gap: 18pt;
     align-items: center;
   }
+  .edu-line span:nth-child(2) { text-align: center; }
+  .edu-line span:nth-child(3),
+  .edu-line span:nth-child(4) { white-space: nowrap; }
   .edu-line strong { color: var(--blue-900); }
   .print-btn {
     position: fixed;
@@ -185,7 +189,7 @@
         <div class="skill-item"><span class="label">AI 应用集成：</span>FastAPI SSE、业务 API 编排、前端路由 / UIAction、Token 管理、文档知识接入、专家经验沉淀</div>
         <div class="skill-item"><span class="label">后端框架：</span>Java、Spring Boot、Spring Cloud、Spring MVC、MyBatis、RESTful API</div>
         <div class="skill-item"><span class="label">微服务中间件：</span>Nacos、Redis、RocketMQ、XXL-JOB、Canal、Nginx</div>
-        <div class="skill-item"><span class="label">数据与检索：</span>MySQL、TDengine、Elasticsearch、Liquibase、元数据模型、指标模型、OneData / OneService</div>
+        <div class="skill-item"><span class="label">数据与检索：</span>MySQL、TDengine、Elasticsearch、Liquibase、元数据模型、指标模型、OneData 方法论</div>
         <div class="skill-item"><span class="label">DevOps 交付：</span>Linux、Shell、Docker、Jenkins、Jpom、Prometheus</div>
       </div>
     </div>
@@ -214,10 +218,10 @@
 
       <div class="project">
         <div class="project-header"><span class="project-num">03.</span><span class="project-name">能源管理平台</span><span class="project-period">2023.10 – 至今</span></div>
-        <div class="role-line"><span class="role">核心后端与数据架构</span><span class="tags">OneData / OneService · TDengine · 元数据模型 · 指标模型</span></div>
+        <div class="role-line"><span class="role">核心后端与数据架构</span><span class="tags">OneData 体系 · TDengine · 元数据模型 · 指标模型</span></div>
         <div class="proj-bg"><strong>项目背景：</strong>面向能源管理业务建设平台化产品，统一承载设备运行、能耗分析、设备告警、消息发送、权限管理和数据中台能力。</div>
-        <p class="lp"><span class="label">方案设计：</span>负责基础框架、角色权限、能耗分析、设备告警、消息发送等模块设计与开发；参考 OneData / OneService 搭建统一数据服务体系，围绕统一数据口径、统一指标模型、统一服务出口设计元数据模型、指标模型和数据 API 服务能力。</p>
-        <p class="lp"><span class="label">落地成果：</span>沉淀能耗、设备、告警、组织、站点等主题数据，推动业务指标标准化和复用，为 AI Agent 的业务查询和解释生成提供一致的数据基础；引入 TDengine 承载设备时序数据。</p>
+        <p class="lp"><span class="label">方案设计：</span>负责基础框架、角色权限、能耗分析、设备告警、消息发送等模块设计与开发；参考阿里 OneData 方法论搭建统一数据服务体系，围绕统一数据口径、统一指标模型、统一服务出口设计元数据模型、指标模型和数据 API 服务能力。</p>
+        <p class="lp"><span class="label">落地成果：</span>围绕能耗、设备、告警、组织、站点等主题沉淀公共数据与指标模型，推动业务指标标准化和复用，为 AI Agent 的业务查询和解释生成提供一致的数据基础；引入 TDengine 承载设备时序数据。</p>
       </div>
     </div>
   </div>
@@ -243,6 +247,7 @@
       </div>
 
       <div class="company-line" style="margin-top: 8pt;"><span class="name">南京天溯自动化控制系统有限公司</span><span class="meta"> · Java 高级开发工程师 / 开发组长 · 智慧医院后勤</span><span class="period">2020.07 – 2023.09</span></div>
+      <div class="role-overview"><strong>职责概述：</strong>负责智慧医院后勤运维生态平台 HLMS 系统产品开发，参与平台 3.0 版本升级重构，并担任开发组长推进小组任务拆解、进度跟踪、现场需求评估、高可用改造和交付协调。</div>
 
       <div class="project">
         <div class="project-header"><span class="project-num">06.</span><span class="project-name">智慧医院运维生态平台</span><span class="project-period">2020.07 – 2023.09</span></div>
@@ -259,6 +264,7 @@
       </div>
 
       <div class="company-line" style="margin-top: 8pt;"><span class="name">南京大汉网络有限公司</span><span class="meta"> · Java 开发工程师 / 项目组长 · 数字政务</span><span class="period">2017.07 – 2020.06</span></div>
+      <div class="role-overview"><strong>职责概述：</strong>参与数字政务平台产品研发，负责政务中台与内容管理系统的业务功能开发、需求分析、接口设计、数据库设计优化和技术文档维护。参与省级政务项目交付，并承担部分项目组长职责，负责政务服务数据迁移系统开发和创新项目落地。</div>
 
       <div class="project">
         <div class="project-header"><span class="project-num">08.</span><span class="project-name">JPaaS 数字政务中台 / JCMS 内容管理系统</span><span class="project-period">2017.07 – 2020.06</span></div>
@@ -271,7 +277,10 @@
     <div class="section">
       <div class="section-title">教育背景</div>
       <div class="edu-line">
-        <div><strong>南京理工大学</strong> · 计算机科学与技术学院（网络工程） · 2017 届 · 学士学位</div>
+        <span><strong>南京理工大学</strong></span>
+        <span>计算机科学与技术学院（网络工程）</span>
+        <span>2017 届</span>
+        <span>学士学位</span>
       </div>
     </div>
   </div>
