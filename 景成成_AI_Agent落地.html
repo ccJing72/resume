@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>景成成 - AI Agent 落地</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  :root {
+    --blue-900: #0f2b47;
+    --blue-700: #1a4a7a;
+    --blue-500: #2d6cb5;
+    --blue-400: #4a8fd4;
+    --blue-50: #f4f8fc;
+    --gray-800: #1f2937;
+    --gray-600: #4b5563;
+    --gray-400: #9ca3af;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+  body {
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-size: 8.45pt;
+    line-height: 1.42;
+    color: var(--gray-800);
+    background: #e5e7eb;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    margin: 0 auto;
+    background: var(--white);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .page + .page { margin-top: 12px; }
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+    .page + .page { margin-top: 0; }
+    .no-print { display: none !important; }
+  }
+  .header {
+    background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+    padding: 14pt 18pt 10pt;
+    color: white;
+  }
+  .header h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: 3pt;
+    margin-bottom: 2pt;
+  }
+  .subtitle {
+    font-size: 10pt;
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.8pt;
+    margin-bottom: 5pt;
+  }
+  .contact { font-size: 8pt; color: rgba(255,255,255,0.68); }
+  .contact span { margin-right: 8pt; white-space: nowrap; }
+  .content { padding: 6pt 18pt 9pt; }
+  .section { margin-bottom: 4pt; padding-top: 5pt; }
+  .section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--blue-700);
+    letter-spacing: 2pt;
+    padding-bottom: 3pt;
+    margin-bottom: 4pt;
+    border-bottom: 2pt solid var(--blue-500);
+    display: block;
+  }
+  .company-line { font-size: 9.5pt; margin-bottom: 1pt; }
+  .company-line .name { font-weight: 700; }
+  .company-line .meta { color: var(--gray-600); font-size: 9pt; }
+  .company-line .period { color: var(--gray-400); font-size: 8pt; float: right; }
+  .role-overview {
+    background: var(--blue-50);
+    border-left: 2.5pt solid var(--blue-700);
+    padding: 3pt 8pt;
+    margin: 3pt 0 2pt;
+    color: var(--blue-900);
+    line-height: 1.48;
+    border-radius: 0 2pt 2pt 0;
+  }
+  .role-overview strong { font-weight: 700; }
+  .project { margin-bottom: 4pt; }
+  .project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 4pt;
+    margin-top: 5pt;
+    margin-bottom: 1pt;
+  }
+  .project-num { font-size: 9pt; font-weight: 700; color: var(--blue-500); }
+  .project-name { font-size: 9.5pt; font-weight: 700; color: var(--blue-900); }
+  .project-period { font-size: 7.5pt; color: var(--gray-400); margin-left: auto; white-space: nowrap; }
+  .role-line { font-size: 8.35pt; margin-bottom: 2pt; }
+  .role-line .role { font-weight: 700; color: var(--gray-800); }
+  .role-line .tags { color: var(--blue-400); margin-left: 5pt; font-size: 7.9pt; }
+  .proj-bg {
+    padding: 1pt 0;
+    margin-bottom: 2pt;
+    color: var(--gray-800);
+    line-height: 1.42;
+  }
+  .proj-bg > strong:first-child { font-weight: 700; color: var(--blue-700); }
+  .lp {
+    line-height: 1.42;
+    margin-bottom: 1.5pt;
+    text-align: justify;
+  }
+  .lp .label { font-weight: 700; color: var(--blue-700); white-space: nowrap; }
+  .lp strong { font-weight: 700; color: var(--gray-800); }
+  .eval-item { line-height: 1.42; margin-bottom: 1.5pt; }
+  .eval-item .label { font-weight: 700; color: var(--blue-700); }
+  .skill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2pt 12pt;
+  }
+  .skill-item {
+    font-size: 8.3pt;
+    line-height: 1.36;
+    color: var(--gray-800);
+  }
+  .skill-item .label { font-weight: 700; color: var(--blue-700); }
+  .edu-line {
+    font-size: 9pt;
+    display: flex;
+    gap: 18pt;
+    align-items: center;
+  }
+  .edu-line strong { color: var(--blue-900); }
+  .print-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: var(--blue-500);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 100;
+  }
+  .print-btn:hover { background: var(--blue-700); }
+</style>
+</head>
+<body>
+<button class="print-btn no-print" onclick="window.print()">导出 PDF</button>
+
+<div class="page">
+  <div class="header">
+    <h1>景成成</h1>
+    <div class="subtitle">AI Agent 落地工程师 · AI 应用后端架构 · Java + 业务系统集成</div>
+    <div class="contact">
+      <span>18951758727</span><span>jingcc72&#64;163.com</span><span>9 年 Java 后端经验</span><span>南京理工大学 · 本科</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="section">
+      <div class="section-title">个人介绍</div>
+      <p class="eval-item"><span class="label">经历概述：</span>9 年 Java 后端与平台型产品开发经验，近 3 年担任架构师 / 开发负责人，具备能源管理、碳管理、智慧医院后勤、数字政务等行业平台建设经验。</p>
+      <p class="eval-item"><span class="label">AI Agent 落地：</span>基于 LangGraph 构建能源管理 AI Agent，打通自然语言理解、工具调度、业务 API 查询、知识库检索、前端页面跳转和报告生成链路。</p>
+      <p class="eval-item"><span class="label">AI 工程能力：</span>熟悉 RAG、知识库问答、Prompt Engineering、流式输出、低置信拒答、引用来源标注、Token 自动刷新等能力，关注 AI 与真实业务系统的可靠集成。</p>
+      <p class="eval-item"><span class="label">后端基础：</span>长期负责 Java 后端核心模块、权限体系、数据建模、消息推送、时序数据、搜索、监控告警和自动化部署，能够将 AI 能力落到可维护的业务平台中。</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">技术栈</div>
+      <div class="skill-grid">
+        <div class="skill-item"><span class="label">AI Agent 与 RAG：</span>LangGraph、ReAct、RAG、知识库问答、Prompt Engineering、工具调用、低置信拒答、引用来源标注</div>
+        <div class="skill-item"><span class="label">AI 应用集成：</span>FastAPI SSE、业务 API 编排、前端路由 / UIAction、Token 管理、文档知识接入、专家经验沉淀</div>
+        <div class="skill-item"><span class="label">后端框架：</span>Java、Spring Boot、Spring Cloud、Spring MVC、MyBatis、RESTful API</div>
+        <div class="skill-item"><span class="label">微服务中间件：</span>Nacos、Redis、RocketMQ、XXL-JOB、Canal、Nginx</div>
+        <div class="skill-item"><span class="label">数据与检索：</span>MySQL、TDengine、Elasticsearch、Liquibase、元数据模型、指标模型、OneData / OneService</div>
+        <div class="skill-item"><span class="label">DevOps 交付：</span>Linux、Shell、Docker、Jenkins、Jpom、Prometheus</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">工作经历</div>
+      <div class="company-line"><span class="name">南京福加智算科技有限公司</span><span class="meta"> · 架构师 / 开发负责人 · 能碳管理 / AI Agent</span><span class="period">2023.10 – 至今</span></div>
+      <div class="role-overview"><strong>职责概述：</strong>负责能碳管理平台技术架构、核心模块研发、数据模型设计、部署交付与研发协作管理。支撑平台从 0 到 1 交付，并推进 AI Agent 与业务平台融合。</div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">01.</span><span class="project-name">EnerGraph 青山大模型决策层 / AI 智能助手</span><span class="project-period">2026.05 – 至今</span></div>
+        <div class="role-line"><span class="role">AI Agent 架构与核心开发</span><span class="tags">LangGraph · ReAct · RAG · FastAPI SSE · 业务 API · UIAction</span></div>
+        <div class="proj-bg"><strong>项目背景：</strong>面向福加能碳管理平台构建能源管理 AI Agent，将原有 AI 智能助手升级为青山大模型 V3.0 架构中的决策层，连接用户自然语言、业务知识、平台数据和前端页面能力。</div>
+        <p class="lp"><span class="label">方案设计：</span>设计 <strong>Graph / Skills / Tools / Schemas / Config</strong> 分层架构，将流程编排、业务推理、原子工具、数据契约和配置管理解耦；基于 LangGraph 构建 ReAct 状态图，完成意图理解、工具调度、业务查询、知识检索、页面跳转和报告生成。</p>
+        <p class="lp"><span class="label">落地成果：</span>接入空调暖通、冷水机房等行业知识和专家经验文档，结合 HVAC 知识库 RAG、Java 后端真实业务 API 和前端路由能力，通过 FastAPI SSE 流式返回工具调用过程、文本报告和 UIAction 页面跳转信号。</p>
+        <p class="lp"><span class="label">工程约束：</span>实现多意图识别、低置信拒答、引用来源标注、Token 自动刷新等能力；明确决策层不直接编造运营数据，所有平台数据通过工具调用获取，为 PowerAI、能效诊断、碳管理等智能体扩展预留架构基础。</p>
+      </div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">02.</span><span class="project-name">AI 辅助研发与业务平台融合</span><span class="project-period">2023.10 – 至今</span></div>
+        <div class="role-line"><span class="role">AI 工程化实践</span><span class="tags">Cursor · Trae · Codex · Claude Code · 业务 API · 指标模型</span></div>
+        <p class="lp"><span class="label">研发提效：</span>在能碳管理平台研发中持续使用 Cursor、Trae、Antigravity、Codex、Claude Code 等 AI 工具辅助需求拆解、代码生成、重构检查和文档整理，提升小团队交付效率。</p>
+        <p class="lp"><span class="label">能力沉淀：</span>围绕能源管理、碳管理等场景沉淀可复用业务 API、指标模型和页面路由能力，为 AI Agent 接入真实业务系统提供工具基础。</p>
+        <p class="lp"><span class="label">边界控制：</span>结合业务平台权限、数据口径和接口契约约束 Agent 输出边界，避免 AI 应用脱离真实业务数据和系统操作语境。</p>
+      </div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">03.</span><span class="project-name">能源管理平台</span><span class="project-period">2023.10 – 至今</span></div>
+        <div class="role-line"><span class="role">核心后端与数据架构</span><span class="tags">OneData / OneService · TDengine · 元数据模型 · 指标模型</span></div>
+        <div class="proj-bg"><strong>项目背景：</strong>面向能源管理业务建设平台化产品，统一承载设备运行、能耗分析、设备告警、消息发送、权限管理和数据中台能力。</div>
+        <p class="lp"><span class="label">方案设计：</span>负责基础框架、角色权限、能耗分析、设备告警、消息发送等模块设计与开发；参考 OneData / OneService 搭建统一数据服务体系，围绕统一数据口径、统一指标模型、统一服务出口设计元数据模型、指标模型和数据 API 服务能力。</p>
+        <p class="lp"><span class="label">落地成果：</span>沉淀能耗、设备、告警、组织、站点等主题数据，推动业务指标标准化和复用，为 AI Agent 的业务查询和解释生成提供一致的数据基础；引入 TDengine 承载设备时序数据。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="content" style="padding-top: 16pt;">
+    <div class="section" style="padding-top: 0;">
+      <div class="section-title">工作经历（续）</div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">04.</span><span class="project-name">碳管理平台</span><span class="project-period">2024.01 – 至今</span></div>
+        <div class="role-line"><span class="role">独立从 0 到 1 开发</span><span class="tags">轨道交通 · 零碳工厂 · 碳资产 · 碳中枢</span></div>
+        <p class="lp"><span class="label">方案设计：</span>独立完成碳管理平台首版核心功能设计与开发，负责碳概览、组织碳、碳资产、碳中枢等核心模块，围绕碳排数据沉淀、展示呈现和归档整理形成业务闭环。</p>
+        <p class="lp"><span class="label">落地成果：</span>为公司及集团零碳工厂认证提供数据支撑，提升认证材料整理、数据查询和成果展示效率，并为后续碳管理智能体扩展沉淀业务能力。</p>
+      </div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">05.</span><span class="project-name">区块链数据可信存证平台</span><span class="project-period">2024.01 – 至今</span></div>
+        <div class="role-line"><span class="role">平台部署与业务集成</span><span class="tags">FISCO-BCOS · WeBASE · 数据存证 · 可追溯审计</span></div>
+        <p class="lp"><span class="label">方案设计：</span>部署并搭建 FISCO-BCOS 区块链平台，使用 WeBASE 管理节点数据和链上信息，设计关键运行数据上链与存证流程。</p>
+        <p class="lp"><span class="label">落地成果：</span>对能源管理平台核心数据形成不可篡改记录，增强数据真实性、完整性和可追溯性；开发区块链展示大屏，支撑公司展厅战略宣传和客户演示场景。</p>
+      </div>
+
+      <div class="company-line" style="margin-top: 8pt;"><span class="name">南京天溯自动化控制系统有限公司</span><span class="meta"> · Java 高级开发工程师 / 开发组长 · 智慧医院后勤</span><span class="period">2020.07 – 2023.09</span></div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">06.</span><span class="project-name">智慧医院运维生态平台</span><span class="project-period">2020.07 – 2023.09</span></div>
+        <div class="role-line"><span class="role">高级后端开发 / 开发组长</span><span class="tags">Spring Boot · Canal · 极光推送 · Prometheus</span></div>
+        <p class="lp"><span class="label">方案设计：</span>负责 HLMS 平台 3.0 版本升级重构，完成部门管理、人员管理、告警推送、角色权限、消息推送等模块设计与开发，推动平台基础能力统一和业务模块解耦。</p>
+        <p class="lp"><span class="label">落地成果：</span>引入 Canal 支撑数据同步，对接极光推送实现多渠道告警触达；推进高可用集群化改造，使用 Prometheus 搭建服务器、微服务和中间件监控。</p>
+      </div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">07.</span><span class="project-name">项目管理、高可用与自动化交付</span><span class="project-period">2020.07 – 2023.09</span></div>
+        <div class="role-line"><span class="role">开发组长 / 唯一工具开发者</span><span class="tags">Shell · Jenkins · 多节点部署 · 现场交付</span></div>
+        <p class="lp"><span class="label">团队协作：</span>负责开发小组任务拆解、进度跟踪、代码质量把控、现场需求评估与交付协调。</p>
+        <p class="lp"><span class="label">工具建设：</span>基于 Shell 脚本开发公司产品一键部署工具，覆盖版本打包、服务部署、配置初始化和多节点部署场景；使用 Jenkins 流水线实现一键打包版本包，降低现场交付对人工操作的依赖。</p>
+      </div>
+
+      <div class="company-line" style="margin-top: 8pt;"><span class="name">南京大汉网络有限公司</span><span class="meta"> · Java 开发工程师 / 项目组长 · 数字政务</span><span class="period">2017.07 – 2020.06</span></div>
+
+      <div class="project">
+        <div class="project-header"><span class="project-num">08.</span><span class="project-name">JPaaS 数字政务中台 / JCMS 内容管理系统</span><span class="project-period">2017.07 – 2020.06</span></div>
+        <div class="role-line"><span class="role">后端开发 / 项目组长</span><span class="tags">Spring Boot · Spring MVC · Elasticsearch · 政务项目交付</span></div>
+        <p class="lp"><span class="label">平台建设：</span>参与 SaaS 向 PaaS 化转型的核心平台建设，负责数字政务中台主要业务模块开发、需求评审、接口设计与技术文档维护；引入 Elasticsearch 支撑内容检索与政务数据查询。</p>
+        <p class="lp"><span class="label">项目交付：</span>参与江苏政务服务、浙江省政府等省级政务项目交付；作为组长负责政务服务数据迁移系统开发；独立开发部门创新项目并整合外部接口能力，获得公司年度创新二等奖。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">教育背景</div>
+      <div class="edu-line">
+        <div><strong>南京理工大学</strong> · 计算机科学与技术学院（网络工程） · 2017 届 · 学士学位</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
